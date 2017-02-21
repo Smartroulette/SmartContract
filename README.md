@@ -1,1 +1,3 @@
 # SmartContract
+
+Initial version
