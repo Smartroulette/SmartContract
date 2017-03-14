@@ -38,6 +38,11 @@ contract WinMatrix
         return betsProcessed;
    }
 
+   function isReady() external constant returns (bool)
+   {
+        return betsProcessed == maxTypeBets;
+   }
+
    function deleteContract() onlyDeveloper  
    {
         suicide(msg.sender);
@@ -117,7 +122,7 @@ contract WinMatrix
           }
           else if (betType == BetTypes.high)
           {
-            if (wheelResult > 18 && wheelResult != 0) winMatrix[index] = 1;     
+            if (wheelResult > 18) winMatrix[index] = 1;     
           }
           else if (betType == BetTypes.dozen1)
           {
@@ -125,11 +130,11 @@ contract WinMatrix
           }
           else if (betType == BetTypes.dozen2)
           {
-            if (wheelResult >13 && wheelResult < 25 && wheelResult != 0) winMatrix[index] = 2;
+            if (wheelResult >12 && wheelResult < 25) winMatrix[index] = 2;
           }              
           else if (betType == BetTypes.dozen3)
           {
-              if (wheelResult >24 && wheelResult != 0) winMatrix[index] = 2;
+              if (wheelResult >24) winMatrix[index] = 2;
           }   
           else if (betType == BetTypes.column1)
           {
@@ -150,11 +155,7 @@ contract WinMatrix
           else if (betType == BetTypes.pair_02)
           {
               if (wheelResult == 0 || wheelResult == 2) winMatrix[index] = 17;
-          }
-          else if (betType == BetTypes.pair_03)
-          {
-              if (wheelResult == 0 || wheelResult == 3) winMatrix[index] = 17;
-          }               
+          }          
           else if (betType == BetTypes.pair_03)
           {
               if (wheelResult == 0 || wheelResult == 3) winMatrix[index] = 17;
@@ -225,7 +226,7 @@ contract WinMatrix
           }
           else if (betType == BetTypes.pair_1112)
           {
-              if (wheelResult == 12 || wheelResult == 12) winMatrix[index] = 17;
+              if (wheelResult == 11 || wheelResult == 12) winMatrix[index] = 17;
           }
           else if (betType == BetTypes.pair_1215)
           {
@@ -597,7 +598,7 @@ contract WinMatrix
     }
 
 
-    function getCoeff(uint16 n) external returns (uint256) 
+    function getCoeff(uint16 n) external constant returns (uint256) 
     {
         return winMatrix[n];
     }
